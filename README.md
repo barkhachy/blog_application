@@ -35,4 +35,4 @@
   
   <h4> Here we have also audit table to store all user's event</h4><br>
   
-                                           `Future scope to reduce the latency` 
+                                    `Future scope to reduce the latency` 
