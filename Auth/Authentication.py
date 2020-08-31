@@ -4,7 +4,7 @@ import datetime
 import jwt
 from flask import json, Response, request, g
 from functools import wraps
-from model.model import Base, User, Blog, Comment
+from model.model import Base, User, Blog, Comment, BlackList
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv, find_dotenv
@@ -45,6 +45,16 @@ class Auth():
         response=json.dumps({'error': 'error in generating user token'}),
         status=400
       )
+  @staticmethod
+  def check_blacklist(token):
+    # check whether auth token has been blacklisted
+    res = session.query(BlackList).filter_by( token = str(token)).first()
+    print(res)
+    if res:
+        return True  
+    else:
+        return False
+
 
   @staticmethod
   def decode_token(token):
@@ -54,6 +64,11 @@ class Auth():
     re = {'data': {}, 'error': {}}
     try:
       payload = jwt.decode(token, "abcdefgh")
+      is_blacklisted = Auth.check_blacklist(token)
+      print(is_blacklisted)
+      if is_blacklisted:
+        re['error'] = {'message': 'token expired, please login again'}
+        return re
       re['data'] = {'user_name': payload['sub']}
       return re
     except jwt.ExpiredSignatureError as e1:

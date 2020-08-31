@@ -87,6 +87,14 @@ class Audit(Base):
            'time':self.time,
            'input':self.activity_data
        }
+
+class BlackList(Base):
+    __tablename__ ="BlackList"
+    id = Column(Integer, primary_key=True, autoincrement = True)
+    token = Column(String(100), nullable = False)
+    b_time = Column(DateTime, default =datetime.utcnow)
+
+    
 engine = create_engine('sqlite:///blog.db')
  
 Base.metadata.create_all(engine)

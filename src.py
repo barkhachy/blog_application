@@ -1,6 +1,6 @@
 import os
 import sys
-from model.model import Base, User, Blog, Comment, Audit
+from model.model import Base, User, Blog, Comment, Audit, BlackList
 from flask import request, json, Response, Blueprint, g, Flask
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
@@ -96,6 +96,10 @@ def logout():
   """
   audit = Audit(user_name = str(g.user.get('id')), activity = request.method, which_activity = sys._getframe().f_code.co_name )
   db_session.add(audit)
+  db_session.commit()
+  token =  request.headers.get('api-token')
+  new_entry = BlackList(token = str(token))
+  db_session.add(new_entry)
   db_session.commit()
   return custom_response("Logged out",200)
 
