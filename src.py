@@ -66,7 +66,7 @@ def login():
   if not query.verify_password(req_data['password']):
     return custom_response({'error': 'Wrong Password!!'}, 400)
   token = Auth.generate_token(req_data['user_name'])
-  audit = Audit(user_name = json['user_name'], activity = request.method, which_activity = sys._getframe().f_code.co_name )
+  audit = Audit(user_name = req_data['user_name'], activity = request.method, which_activity = sys._getframe().f_code.co_name )
   db_session.add(audit)
   db_session.commit()
   return custom_response({'jwt_token': token}, 200)
