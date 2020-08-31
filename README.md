@@ -3,7 +3,7 @@
 <h4>A REST API service for a Blog Application where users can</h4>
   <ul>
     <li>create their account,delete it
-    <li>create blogs(picture can also be added)
+    <li>create blogs(picture can be uploaded on server)
     <li>update and delete their own blogs
     <li>view blogs created by others
     <li>add comment on blog, view all comments
@@ -35,4 +35,4 @@
   
   <h4> Here we have also audit table to store all user's event</h4><br>
   
-                                    `Future scope to reduce the latency` 
+                                  `Future scope to reduce the latency` 
