@@ -12,7 +12,7 @@
     
     Two different parts of this project:
       1. Backend(Flask)
-      2. Database(MySQL)
+      2. Database(SQL)
   <br><br>
   To successfully run this application you can clone this repo.
   <br>
